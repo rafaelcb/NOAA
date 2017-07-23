@@ -21,5 +21,5 @@ numeric class. It also creates a DATE variable that combines the
 \code{YEAR}, \code{MONTH} and \code{DAY} variables to a a Date class object.
 }
 \examples{
-eq_clean_data(NOAA_data)
+eq_clean_data(eq_data)
 }

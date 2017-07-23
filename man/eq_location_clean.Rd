@@ -19,5 +19,5 @@ This function takes a raw NOAA earthquake data.frame and cleans the
 string to title case.
 }
 \examples{
-eq_location_clean(NOAA_data)
+eq_location_clean(eq_data)
 }
