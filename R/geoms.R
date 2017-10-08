@@ -36,7 +36,7 @@ GeomTimeline <-
                 id = rep(seq_along(y_lines), 2),
                 gp = grid::gpar(
                     col = "grey",
-                    lwd = 2
+                    lwd = 1.5
                 )
             )
 
@@ -92,7 +92,7 @@ geom_timeline <- function(mapping = NULL, data = NULL, na.rm = TRUE,
 #' @examples
 #' \dontrun{
 #' data %>% eq_clean_data() %>%
-#' filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
+#'    filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
 #'    ggplot(aes(x = DATE, y = COUNTRY")) +
 #'    geom_timeline() +
 #'    theme_timeline()
@@ -107,7 +107,6 @@ theme_eq_timeline <- ggplot2::theme(
     panel.background = ggplot2::element_blank(),
     legend.position = "bottom",
     legend.key = ggplot2::element_blank(),
-    legend.,
     axis.line.x =
         ggplot2::element_line(
             colour = "black",

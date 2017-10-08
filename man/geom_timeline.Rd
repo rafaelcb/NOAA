@@ -5,7 +5,8 @@
 \title{Timeline charts}
 \usage{
 geom_timeline(mapping = NULL, data = NULL, na.rm = TRUE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  stat = "identity", position = "identity", show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{aes} or \code{aes_}.}
