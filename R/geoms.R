@@ -104,7 +104,8 @@ GeomTimelineLabel <-
                     data <- dplyr::sample_n(data,params$n_max)
                 }
                 else {
-                    data <- dplyr::top_n(data, params$n_max, size)
+                    data <- dplyr::top_n(data, params$n_max, size) %>%
+                        arrange(desc(size)) %>% slice(1:params$n_max)
                 }
             }
 
@@ -127,9 +128,11 @@ GeomTimelineLabel <-
             line <- grid::polylineGrob(
                 x = grid::unit(c(coords$x, coords$x), "npc"),
                 y = grid::unit(c(coords$y, coords$y + offset), "npc"),
+                id = rep(1:NROW(coords), 2),
                 gp = grid::gpar(
                     col = "grey",
-                    lwd = 1.5
+                    lwd = 1.5,
+                    linetype = "dashed"
                 )
             )
 
