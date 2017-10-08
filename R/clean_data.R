@@ -22,6 +22,8 @@ eq_clean_data <- function(dataframe) {
         dplyr::mutate(
             LONGITUDE = as.numeric(.data$LONGITUDE),
             LATITUDE = as.numeric(.data$LATITUDE),
+            INTENSITY = as.numeric(.data$INTENSITY),
+            DEATHS = as.numeric(.data$DEATHS),
             DATE = lubridate::make_date(
                 year = .data$YEAR,
                 month = .data$MONTH,
