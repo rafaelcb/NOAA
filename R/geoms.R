@@ -4,50 +4,43 @@ GeomTimeline <-
         `_inherit` = ggplot2::Geom,
         required_aes = c("x"),
         default_aes = ggplot2::aes(
-            y = 0.5,
-            xmin = NULL,
-            xmax = NULL,
-            color = "skyblue",
+            y = 0.20,
+            colour = "skyblue",
+            fill = "skyblue",
             size = 1,
-            alpha = 0.8
+            alpha = 0.25,
+            shape = 21,
+            stroke = 0.5
         ),
-        reparametrise = function(data) {
-            if (!is.null(data$xmin)) {
-                data$xmin <- as.Date(data$xmin)
-                data <- data %>% dplyr::filter(.data$x >= .data$xmin)
-            }
-            if (!is.null(data$xmax)) {
-                data$xmax <- as.Date(data$xmax)
-                data <- data %>% dplyr::filter(.data$x <= .data$xmax)
-            }
-
-            return(data)
-        },
-        draw_key = ggplot2::draw_key_blank,
-        draw_group = function(data, panel_scales, coord) {
-            data <- data[complete.cases(data), ]
+        draw_key = ggplot2::draw_key_point,
+        draw_panel = function(data, panel_scales, coord) {
             coords <- coord$transform(data, panel_scales)
-            print(coords)
-
-            line <- grid::segmentsGrob(
-                x0 = min(coords$x, na.rm = TRUE),
-                x1 = max(coords$x, na.rm = TRUE),
-                y0 = coords$y,
-                y1 = coords$y
-            )
 
             points <- grid::pointsGrob(
                 x = coords$x,
                 y = coords$y,
-                pch = 21,
+                pch = coords$shape,
+                size = unit(coords$size * 0.5, "char"),
                 gp = grid::gpar(
-                    fill = coords$colour,
-                    cex = coords$size * 0.5,
+                    fill = coords$fill,
+                    colour = coords$fill,
                     alpha = coords$alpha
                 )
             )
 
-            grid::gTree(children = grid::gList(line, points))
+            y_lines <- unique(coords$y)
+
+            line <- grid::polylineGrob(
+                x = unit(rep(c(0, 1), each = length(y_lines)), "npc"),
+                y = unit(c(y_lines, y_lines), "npc"),
+                id = rep(seq_along(y_lines), 2),
+                gp = grid::gpar(
+                    col = "grey",
+                    lwd = 2
+                )
+            )
+
+            grid::gList(line, points)
 
         }
     )
@@ -76,15 +69,55 @@ GeomTimeline <-
 #' ggplot(aes(x = DATE, size = INTENSITY, color = DEATHS, y = COUNTRY)) +
 #' geom_timeline()
 geom_timeline <- function(mapping = NULL, data = NULL, na.rm = TRUE,
-    show.legend = NA, inherit.aes = TRUE, ...) {
+    stat = "identity", position = "identity", show.legend = NA, inherit.aes = TRUE, ...) {
         ggplot2::layer(
             geom = GeomTimeline,
             mapping = mapping,
             data = data,
+            stat = stat,
             show.legend = show.legend,
             inherit.aes = inherit.aes,
+            position = position,
             params = list(na.rm = na.rm, ...)
 
         )
 }
 
+
+#' Theme for geom_timeline plot
+#'
+#' @description  This theme helps visualize the information from a geom_timeline
+#' plot better.
+#'
+#' @examples
+#' \dontrun{
+#' data %>% eq_clean_data() %>%
+#' filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
+#'    ggplot(aes(x = DATE, y = COUNTRY")) +
+#'    geom_timeline() +
+#'    theme_timeline()
+#' }
+#'
+#' @importFrom ggplot2 theme element_blank element_line element_text
+#' @importFrom grid arrow unit
+#'
+#' @export
+#'
+theme_eq_timeline <- ggplot2::theme(
+    panel.background = ggplot2::element_blank(),
+    legend.position = "bottom",
+    legend.key = ggplot2::element_blank(),
+    legend.,
+    axis.line.x =
+        ggplot2::element_line(
+            colour = "black",
+            arrow = grid::arrow(
+                type = "closed",
+                length = grid::unit(1, "npc")
+            ),
+            size = 0.9
+        ),
+    axis.text.x = ggplot2::element_text(colour = "black"),
+    axis.ticks = ggplot2::element_blank(),
+    axis.title = ggplot2::element_blank()
+    )
