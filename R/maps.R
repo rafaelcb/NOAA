@@ -6,6 +6,7 @@
 #'
 #' @importFrom rlang enquo
 #' @importFrom leaflet leaflet addTiles addCircleMarkers
+#' @importFrom magrittr "%>%"
 #' @export
 #'
 #' @examples eq_data %>% eq_clean_data() %>% eq_location_clean() %>%
@@ -32,12 +33,14 @@ eq_map <- function(df, annot_col = NULL) {
 #' @param df An NOAA earthquake dataframe, with information on locations, magnitude
 #' and death toll of earthquakes.
 #'
-#' @return An HTML-like column vector with information for the
+#' @return An HTML-like column vector with information for the map popups.
 #' @export
+#' @importFrom magrittr "%>%"
 #'
 #' @examples eq_data %>% eq_clean_data() %>% eq_location_clean() %>%
-#' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
-#' mutate(popup_text = eq_create_label(.)) %>% eq_map(annot_col = popup_text)
+#'     dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
+#'     mutate(popup_text = eq_create_label(.)) %>% eq_map(annot_col = popup_text)
+#'
 eq_create_label <- function(df) {
 
     if (!"LOCATION_NAME" %in% colnames(df)) stop("LOCATION_NAME column necessary to create label.")

@@ -1,6 +1,6 @@
 
 #' @importFrom ggplot2 ggproto Geom draw_key_point
-#' @importFrom grid gpar pointsGrob polyLineGrob unit
+#' @importFrom grid gpar pointsGrob polylineGrob unit
 #'
 GeomTimeline <-
     ggplot2::ggproto(
@@ -63,15 +63,23 @@ GeomTimeline <-
 #' @param show.legend logical. Should this layer be included in the legends? NA,
 #' the default, includes if any aesthetics are mapped. FALSE never includes,
 #' and TRUE always includes.
+#' @param inherit.aes If FALSE, overrides the default aesthetics,
+#' rather than combining with them. This is most useful for helper functions
+#' that define both data and aesthetics and shouldn't inherit behaviour from
+#' the default plot specification, e.g. borders.
+#' @param stat The statistical transformation to use on the data for this layer,
+#' as a string.
+#' @param position Position adjustment, either as a string, or the result of a call to a position adjustment function.
 #' @param ... other arguments passed on to layer.
 #'
 #' @return A GeomTimeline layer
 #' @export
 #'
 #' @importFrom ggplot2 layer
+#' @importFrom magrittr "%>%"
 #' @examples
-#' eq_data %>% eq_clean_data() %>% filter(INTENSITY > 6, DATE > "2000-01-01") %>%
-#' ggplot(aes(x = DATE, size = INTENSITY, color = DEATHS, y = COUNTRY)) +
+#' eq_data %>% eq_clean_data() %>% filter(EQ_PRIMARY > 6, DATE > "2000-01-01") %>%
+#' ggplot(aes(x = DATE, size = EQ_PRIMARY, color = DEATHS, y = COUNTRY)) +
 #' geom_timeline()
 geom_timeline <- function(mapping = NULL, data = NULL, na.rm = TRUE,
     stat = "identity", position = "identity", show.legend = NA, inherit.aes = TRUE, ...) {
@@ -89,7 +97,7 @@ geom_timeline <- function(mapping = NULL, data = NULL, na.rm = TRUE,
 }
 
 #' @importFrom ggplot2 ggproto Geom draw_key_blank aes
-#' @importFrom grid gpar textGrob polyLineGrob unit
+#' @importFrom grid gpar textGrob polylineGrob unit
 #' @importFrom dplyr sample_n top_n
 GeomTimelineLabel <-
     ggplot2::ggproto(
@@ -149,23 +157,30 @@ GeomTimelineLabel <-
 #' @param data The data to be displayed.  If specified and \code{inherit.aes = TRUE}
 #' (the default), it is combined with the default mapping at the top level of
 #' the plot. You must supply mapping if there is no plot mapping.
-#' @param n_max The maximum number of points to be labelled. If a size aesthetic
-#' is passed, the top n values based on the size aes will be selected. If not,
-#' n random values are selected.
 #' @param na.rm If FALSE, the default, missing values are removed with a warning.
 #' If TRUE, missing values are silently removed.
+#' @param n_max The maximum number of points to be labelled. If a size aesthetic
 #' @param show.legend logical. Should this layer be included in the legends? NA,
 #' the default, includes if any aesthetics are mapped. FALSE never includes,
 #' and TRUE always includes.
+#' #' @param position Position adjustment, either as a string, or the result of a call to a position adjustment function.
+#' @param inherit.aes If FALSE, overrides the default aesthetics,
+#' rather than combining with them. This is most useful for helper functions
+#' that define both data and aesthetics and shouldn't inherit behaviour from
+#' the default plot specification, e.g. borders.
+#' @param stat The statistical transformation to use on the data for this layer,
+#' as a string.
 #' @param ... other arguments passed on to layer.
+#'
 #'
 #' @return A GeomTimelineLabel layer
 #' @export
 #'
 #' @importFrom ggplot2 layer
+#' @importFrom magrittr "%>%"
 #' @examples
-#' eq_data %>% eq_clean_data() %>% filter(INTENSITY > 6, DATE > "2000-01-01") %>%
-#' ggplot(aes(x = DATE, size = INTENSITY, color = DEATHS, y = COUNTRY)) +
+#' eq_data %>% eq_clean_data() %>% filter(EQ_PRIMARY > 6, DATE > "2000-01-01") %>%
+#' ggplot(aes(x = DATE, size = EQ_PRIMARY, color = DEATHS, y = COUNTRY)) +
 #' geom_timeline()
 geom_timeline_label <- function(
         mapping = NULL, data = NULL, stat = "identity",
@@ -187,7 +202,7 @@ geom_timeline_label <- function(
 #'
 #' @description  This theme helps visualize the information from a geom_timeline
 #' plot better.
-#'
+#' @importFrom magrittr "%>%"
 #' @examples
 #' eq_data %>% eq_clean_data() %>%
 #'    filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%

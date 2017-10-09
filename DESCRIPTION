@@ -7,7 +7,7 @@ Maintainer: Rafael Alberto Castrillo Barquero <rcastrillobf@gmail.com>
 Description: This package provides functionality to explore NOAA earthquake data.
     In particular, it includes ggplot2 geoms to generate earthquake timelines, 
     and leaflet type maps to visualize events.
-License: GNU-3
+License: MIT
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
@@ -15,4 +15,7 @@ Imports: dplyr,
     ggplot2,
     stringr,
     lubridate,
-    magrittr
+    magrittr,
+    leaflet,
+    rlang
+Depends: R (>= 3.0.1)
