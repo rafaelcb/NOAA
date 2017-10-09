@@ -78,9 +78,9 @@ GeomTimeline <-
 #' @importFrom ggplot2 layer
 #' @importFrom magrittr "%>%"
 #' @examples
-#' eq_data %>% eq_clean_data() %>% filter(EQ_PRIMARY > 6, DATE > "2000-01-01") %>%
+#' \dontrun{eq_data %>% eq_clean_data() %>% filter(EQ_PRIMARY > 6, DATE > "2000-01-01") %>%
 #' ggplot(aes(x = DATE, size = EQ_PRIMARY, color = DEATHS, y = COUNTRY)) +
-#' geom_timeline()
+#' geom_timeline()}
 geom_timeline <- function(mapping = NULL, data = NULL, na.rm = TRUE,
     stat = "identity", position = "identity", show.legend = NA, inherit.aes = TRUE, ...) {
         ggplot2::layer(
@@ -178,9 +178,9 @@ GeomTimelineLabel <-
 #' @importFrom ggplot2 layer
 #' @importFrom magrittr "%>%"
 #' @examples
-#' eq_data %>% eq_clean_data() %>% filter(EQ_PRIMARY > 6, DATE > "2000-01-01") %>%
+#' \dontrun{eq_data %>% eq_clean_data() %>% filter(EQ_PRIMARY > 6, DATE > "2000-01-01") %>%
 #' ggplot(aes(x = DATE, size = EQ_PRIMARY, color = DEATHS, y = COUNTRY)) +
-#' geom_timeline()
+#' geom_timeline()}
 geom_timeline_label <- function(
         mapping = NULL, data = NULL, stat = "identity",
         position = "identity", ..., na.rm = FALSE,
@@ -203,10 +203,10 @@ geom_timeline_label <- function(
 #' plot better.
 #' @importFrom magrittr "%>%"
 #' @examples
-#' eq_data %>% eq_clean_data() %>%
+#' \dontrun{eq_data %>% eq_clean_data() %>%
 #'    filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
 #'    ggplot(aes(x = DATE, y = COUNTRY)) +
-#'    geom_timeline() + theme_eq_timeline()
+#'    geom_timeline() + theme_eq_timeline()}
 #'
 #' @importFrom ggplot2 theme element_blank element_line element_text
 #' @importFrom grid arrow unit

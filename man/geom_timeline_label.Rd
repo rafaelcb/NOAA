@@ -43,7 +43,7 @@ A GeomTimelineLabel layer
 This geom adds labels to the points in a timeline chart, up to \code{n_max} points.
 }
 \examples{
-eq_data \%>\% eq_clean_data() \%>\% filter(EQ_PRIMARY > 6, DATE > "2000-01-01") \%>\%
+\dontrun{eq_data \%>\% eq_clean_data() \%>\% filter(EQ_PRIMARY > 6, DATE > "2000-01-01") \%>\%
 ggplot(aes(x = DATE, size = EQ_PRIMARY, color = DEATHS, y = COUNTRY)) +
-geom_timeline()
+geom_timeline()}
 }

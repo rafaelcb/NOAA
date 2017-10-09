@@ -13,10 +13,10 @@ This theme helps visualize the information from a geom_timeline
 plot better.
 }
 \examples{
-eq_data \%>\% eq_clean_data() \%>\%
+\dontrun{eq_data \%>\% eq_clean_data() \%>\%
    filter(COUNTRY \%in\% c("GREECE", "ITALY"), YEAR > 2000) \%>\%
    ggplot(aes(x = DATE, y = COUNTRY)) +
-   geom_timeline() + theme_eq_timeline()
+   geom_timeline() + theme_eq_timeline()}
 
 }
 \keyword{datasets}

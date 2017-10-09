@@ -9,7 +9,9 @@
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-#' @examples eq_data %>% eq_clean_data() %>% eq_location_clean() %>%
+#' @examples
+#' library(dplyr)
+#' eq_data %>% eq_clean_data() %>% eq_location_clean() %>%
 #' dplyr::filter(COUNTRY == "CHINA" & lubridate::year(DATE) >= 2000) %>%
 #' eq_map(annot_col = DATE)
 #'
@@ -37,9 +39,11 @@ eq_map <- function(df, annot_col = NULL) {
 #' @export
 #' @importFrom magrittr "%>%"
 #'
-#' @examples eq_data %>% eq_clean_data() %>% eq_location_clean() %>%
-#'     dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
-#'     mutate(popup_text = eq_create_label(.)) %>% eq_map(annot_col = popup_text)
+#' @examples
+#' library(dplyr)
+#' eq_data %>% eq_clean_data() %>% eq_location_clean() %>%
+#'    dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
+#'    mutate(popup_text = eq_create_label(.)) %>% eq_map(annot_col = popup_text)
 #'
 eq_create_label <- function(df) {
 

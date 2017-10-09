@@ -16,6 +16,7 @@ longitude and latitude.}
 Draw earthquake locations and annotate them.
 }
 \examples{
+library(dplyr)
 eq_data \%>\% eq_clean_data() \%>\% eq_location_clean() \%>\%
 dplyr::filter(COUNTRY == "CHINA" & lubridate::year(DATE) >= 2000) \%>\%
 eq_map(annot_col = DATE)

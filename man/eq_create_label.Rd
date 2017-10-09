@@ -17,8 +17,9 @@ An HTML-like column vector with information for the map popups.
 Create labels for an earthquake location map
 }
 \examples{
+library(dplyr)
 eq_data \%>\% eq_clean_data() \%>\% eq_location_clean() \%>\%
-    dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) \%>\%
-    mutate(popup_text = eq_create_label(.)) \%>\% eq_map(annot_col = popup_text)
+   dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) \%>\%
+   mutate(popup_text = eq_create_label(.)) \%>\% eq_map(annot_col = popup_text)
 
 }

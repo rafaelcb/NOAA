@@ -15,6 +15,7 @@
 #' @importFrom lubridate make_date
 #' @importFrom dplyr mutate as_tibble
 #' @importFrom magrittr "%>%"
+#' @importFrom rlang .data
 #' @examples
 #' eq_clean_data(eq_data)
 eq_clean_data <- function(dataframe) {
@@ -48,6 +49,7 @@ eq_clean_data <- function(dataframe) {
 #' @importFrom dplyr mutate as_tibble
 #' @importFrom stringr str_to_title str_replace
 #' @importFrom magrittr "%>%"
+#' @importFrom rlang .data
 #' @examples
 #' eq_location_clean(eq_data)
 eq_location_clean <- function(dataframe) {
