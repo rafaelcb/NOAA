@@ -24,7 +24,7 @@ GeomTimeline <-
                 x = coords$x,
                 y = coords$y,
                 pch = coords$shape,
-                size = grid::unit(coords$size * 0.5, "char"),
+                size = grid::unit(coords$size * 0.25, "char"),
                 gp = grid::gpar(
                     fill = coords$fill,
                     colour = coords$fill,
@@ -106,7 +106,6 @@ GeomTimelineLabel <-
         required_aes = c("x", "label"),
         draw_key = ggplot2::draw_key_blank,
         setup_data = function(data, params) {
-            print(params$n_max)
             if (!is.null(params$n_max)) {
                 if (is.null(data$size)) {
                     data <- dplyr::sample_n(data,params$n_max)
@@ -163,7 +162,7 @@ GeomTimelineLabel <-
 #' @param show.legend logical. Should this layer be included in the legends? NA,
 #' the default, includes if any aesthetics are mapped. FALSE never includes,
 #' and TRUE always includes.
-#' #' @param position Position adjustment, either as a string, or the result of a call to a position adjustment function.
+#' @param position Position adjustment, either as a string, or the result of a call to a position adjustment function.
 #' @param inherit.aes If FALSE, overrides the default aesthetics,
 #' rather than combining with them. This is most useful for helper functions
 #' that define both data and aesthetics and shouldn't inherit behaviour from

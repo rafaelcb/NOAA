@@ -1,0 +1,84 @@
+---
+title: "NOAA earthquake analysis tools"
+author: "Rafael Castrillo"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This package is designed to facilitate the analysis of NOAA earthquake data from
+the [Significant Earthquake Database](https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1).
+The package itself includes a sample of the data (`eq_data`), but its main functionality is in functions
+to clean up the raw data, which should be downloaded from the NOAA website, and visualize it in a convenient manner.
+
+## Cleaning up data
+
+The data from the website is contained in textfiles that need to be tidied. For this,
+the functions `eq_clean_data` and `eq_location_clean` facilitate getting clean versions
+of the date and location of the earthquakes. The second function, in particular, 
+cleans up the location name to remove redundant country data, while the first one adds a `DATE` column.
+
+```{r}
+library(NOAA)
+library(dplyr, warn.conflicts = FALSE)
+
+eq_data %>% eq_clean_data() %>% eq_location_clean() %>% select(-YEAR, -MONTH, -DAY)
+```
+
+In particular, the resulting dataframe is useful for the visualization functions of the package.
+
+## Visualizing timelines of earthquakes
+
+The package provides two geoms to easily visualize the timelines of earthquakes.
+The first one, `geom_timeline` generates a timeline of earthquakes for one or multiple countries, with aesthetic mappings that allow to control for size and color based on other variables.
+
+```{r, fig.width = 6, fig.height=5}
+library(ggplot2)
+library(lubridate)
+
+eq_data %>% eq_clean_data() %>% eq_location_clean() %>% 
+    filter(lubridate::year(DATE) > 2000, COUNTRY %in% c("USA", "CHINA", "MEXICO")) %>% 
+    ggplot(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY)) + geom_timeline() +
+    ggtitle("Timeline of earthquakes in the USA, Mexico and China")
+
+```
+
+The `geom_timeline_label` function allows the user to additionally include labels for the most important events. To avoid cluttering, the number of labels is controlled using the `n_max` argument. 
+
+```{r, fig.width = 6, fig.height=5}
+eq_data %>% eq_clean_data() %>% eq_location_clean() %>% 
+    filter(lubridate::year(DATE) > 2000, COUNTRY %in% c("JAPAN", "CHILE", "MEXICO")) %>% 
+    ggplot(aes(x = DATE, fill = TOTAL_DEATHS, size = EQ_PRIMARY)) + geom_timeline() + 
+    geom_timeline_label(aes(label = LOCATION_NAME), n_max = 5) +
+    ggtitle("Timeline of earthquakes in Japan, Chile and Mexico")
+```
+
+Additionally, a specific theme `theme_eq_timeline` object was added to improve the visualization of the data.
+
+```{r, fig.width = 6, fig.height=5}
+eq_data %>% eq_clean_data() %>% eq_location_clean() %>% 
+    filter(lubridate::year(DATE) > 2000, COUNTRY %in% c("JAPAN", "CHILE", "MEXICO")) %>% 
+    ggplot(aes(x = DATE, fill = TOTAL_DEATHS, size = EQ_PRIMARY, y = COUNTRY)) + geom_timeline() + 
+    geom_timeline_label(aes(label = LOCATION_NAME), n_max = 5) + theme_eq_timeline +
+    ggtitle("Timeline of earthquakes in Japan, Chile and Mexico")
+```
+
+## Map genaration capabilities
+
+Finally, the package has functions to easily map earthquakes. The function `eq_map` 
+uses the leaflet package to create a beautiful visualization of the data. Additionally, a convenience
+function `eq_create_label` is included that allows to include information about the date, location and number of deaths as a result of the earthquake in popups that are triggered after clicking on a point in the map.
+
+```{r, fig.width = 6, fig.height=5}
+eq_data %>% eq_clean_data() %>% eq_location_clean() %>% 
+    filter(lubridate::year(DATE) > 2000, COUNTRY == "CHINA") %>%
+    mutate(pop_text = eq_create_label(.)) %>% 
+    eq_map(annot_col = pop_text)
+    
+```
+
+```
+

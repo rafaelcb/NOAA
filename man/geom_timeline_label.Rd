@@ -18,6 +18,8 @@ the plot. You must supply mapping if there is no plot mapping.}
 \item{stat}{The statistical transformation to use on the data for this layer,
 as a string.}
 
+\item{position}{Position adjustment, either as a string, or the result of a call to a position adjustment function.}
+
 \item{...}{other arguments passed on to layer.}
 
 \item{na.rm}{If FALSE, the default, missing values are removed with a warning.
@@ -27,8 +29,7 @@ If TRUE, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends? NA,
 the default, includes if any aesthetics are mapped. FALSE never includes,
-and TRUE always includes.
-#' @param position Position adjustment, either as a string, or the result of a call to a position adjustment function.}
+and TRUE always includes.}
 
 \item{inherit.aes}{If FALSE, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions

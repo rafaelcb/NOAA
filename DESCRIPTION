@@ -19,3 +19,6 @@ Imports: dplyr,
     leaflet,
     rlang
 Depends: R (>= 3.0.1)
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
