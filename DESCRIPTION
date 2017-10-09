@@ -20,5 +20,6 @@ Imports: dplyr,
     rlang
 Depends: R (>= 3.0.1)
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr

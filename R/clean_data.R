@@ -59,7 +59,7 @@ eq_location_clean <- function(dataframe) {
                 stringr::str_to_title(
                     stringr::str_replace(
                         .data$LOCATION_NAME,
-                        "[A-Z]+:",
+                        "[A-Z\\s]+: ",
                         ""
                     )
                 )
