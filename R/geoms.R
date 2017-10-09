@@ -189,13 +189,10 @@ geom_timeline_label <- function(
 #' plot better.
 #'
 #' @examples
-#' \dontrun{
-#' data %>% eq_clean_data() %>%
+#' eq_data %>% eq_clean_data() %>%
 #'    filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
-#'    ggplot(aes(x = DATE, y = COUNTRY")) +
-#'    geom_timeline() +
-#'    theme_timeline()
-#' }
+#'    ggplot(aes(x = DATE, y = COUNTRY)) +
+#'    geom_timeline() + theme_eq_timeline()
 #'
 #' @importFrom ggplot2 theme element_blank element_line element_text
 #' @importFrom grid arrow unit
